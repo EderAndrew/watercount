@@ -38,15 +38,15 @@ const TextArea = styled.Text`
   font-weight:bold;
 `
 const MetaText = styled.Text`
-  font-size:26px;
+  font-size:18px;
   color:#45b0fb;
 `
 const ConsuText = styled.Text`
-  font-size:26px;
+  font-size:18px;
   color:#45b0fb;
 `
 const StatusText = styled.Text`
-  font-size:26px;
+  font-size:18px;
   color:#45b0fb;
 `
 
@@ -76,9 +76,28 @@ const TitleButton = styled.Text`
   font-size:18px;
 `
 const App = () => {
-  const [meta, setMeta] = useState(2)
   const [consumo, setConsumo] = useState(0)
-  const [status, setStatus] = useState(0)
+  const [status, setStatus] = useState('Ruim')
+  const [qtdAgua, setQtdAgua] = useState(0)
+
+  const atualizar = () => {
+    let c = ((consumo/2000)*100)
+
+    if (qtdAgua >= 100) {
+      setStatus('Bom')
+    }else{
+      setStatus('Ruim')
+    }
+
+    setQtdAgua(c)
+  }
+
+  const drinkWater = () => {
+    let c = consumo + 200
+    setConsumo(c)
+
+    atualizar()
+  }
 
   return(
     <Container>
@@ -89,22 +108,22 @@ const App = () => {
         <ContainerInfo>
           <Area>
             <TextArea>Meta</TextArea>
-            <MetaText>{ meta }L</MetaText>
+            <MetaText>2000ml</MetaText>
           </Area>
           <Area>
             <TextArea>Consumido</TextArea>
-            <ConsuText>{ consumo }L</ConsuText>
+            <ConsuText>{ consumo }ml</ConsuText>
           </Area>
           <Area>
             <TextArea>Status</TextArea>
-            <StatusText>{ status }%</StatusText>
+            <StatusText>{ status }</StatusText>
           </Area>
         </ContainerInfo>
         <ContainerConsumo>
-          <Quantidade>0</Quantidade>
+          <Quantidade>{ qtdAgua.toFixed(0) }%</Quantidade>
         </ContainerConsumo>
-        <ButtonCount>
-          <TitleButton>Beber</TitleButton>
+        <ButtonCount onPress={drinkWater}>
+          <TitleButton>Beber 200ml</TitleButton>
         </ButtonCount>
       </ImageBack>
     </Container>
