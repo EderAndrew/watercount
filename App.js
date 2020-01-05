@@ -81,7 +81,7 @@ const App = () => {
   const [qtdAgua, setQtdAgua] = useState(0)
 
   const atualizar = () => {
-    let c = ((consumo/2000)*100)
+    let c = Math.floor((consumo/2000)*100)
 
     if (qtdAgua >= 100) {
       setStatus('Bom')
@@ -120,7 +120,7 @@ const App = () => {
           </Area>
         </ContainerInfo>
         <ContainerConsumo>
-          <Quantidade>{ qtdAgua.toFixed(0) }%</Quantidade>
+          <Quantidade>{ qtdAgua }%</Quantidade>
         </ContainerConsumo>
         <ButtonCount onPress={drinkWater}>
           <TitleButton>Beber 200ml</TitleButton>
